@@ -7,12 +7,17 @@
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <form method="post">
-        <label asp-for="inPick.name"></label>
-        <input asp-for="inPick.name"/> <br />
-        <span asp-validation-for="inPick.name" class="text-danger"></span>
-        <label asp-for="inPick.date"></label>
-        <input asp-for="inPick.date"/> <br />
+        <label for="userData.name"></label>
+        <input asp-for="userData.name"/> <br />
+        <span asp-validation-for="userData.name" class="text-danger"></span>
+        <label for="userData.date"></label>
+        <input asp-for="userData.date"/> <br />
         <button type="submit">Zatwierdz</button>
-        <span asp-validation-for="inPick.date" class="text-danger"></span>
+        <span asp-validation-for="userData.date" class="text-danger"></span>
+        <hr/>
+        @if (Model.isValidated)
+        {
+            <h6>@Model.userData.name urodził się w @Model.userData.date roku. To @Model.userData.IsLeapYear() był rok przestępny</h6>
+        }
     </form>
 </div>

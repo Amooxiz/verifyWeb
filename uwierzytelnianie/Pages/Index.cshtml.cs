@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using uwierzytelnianie.Models;
+using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 
 namespace uwierzytelnianie.Pages
 {
@@ -8,14 +10,13 @@ namespace uwierzytelnianie.Pages
     {
         private readonly ILogger<IndexModel> _logger;
 
+        public bool isValidated = false;
+
+
         [BindProperty]
-        public InputPicker inPick { get; set; }
+        public InputPicker userData { get; set; }
+        public List<InputPicker>? userDataList = new List<InputPicker>();
 
-        [BindProperty(SupportsGet = true)]
-        public string name { get; set; }
-
-        [BindProperty(SupportsGet = true)]
-        public int date { get; set; }
         public IndexModel(ILogger<IndexModel> logger)
         {
             _logger = logger;
@@ -23,16 +24,27 @@ namespace uwierzytelnianie.Pages
 
         public void OnGet()
         {
-
+            var Data2 = HttpContext.Session.GetString("Data2");
+            if (Data2 != null)
+                userDataList =
+                JsonConvert.DeserializeObject<List<InputPicker>>(Data2);
         }
 
         public IActionResult OnPost()
         {
-            if (!ModelState.IsValid)
+            var Data2 = HttpContext.Session.GetString("Data2");
+            if (Data2 != null)
+                userDataList =
+                JsonConvert.DeserializeObject<List<InputPicker>>(Data2);
+            if (ModelState.IsValid)
             {
+                isValidated = true;
+                userDataList.Add(userData);
+                HttpContext.Session.SetString("Data", JsonConvert.SerializeObject(userDataList));
                 return Page();
             }
-            return RedirectToPage("./Privacy");
+            isValidated = false;
+            return Page();
         }
 
     }

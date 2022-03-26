@@ -1,0 +1,13 @@
+﻿@page
+@model SavedInSessionModel
+@{
+    ViewData["Title"] = "Data in session";
+}
+<p>Dane w zapisane w sesji</p>
+@if (@Model.userDataList != null)
+{
+    @foreach(var i in @Model.userDataList)
+        {
+            <h6>@i.name, @i.date - rok @i.IsLeapYear() przestepny<br/></h6>
+        }
+}
