@@ -24,18 +24,15 @@ namespace uwierzytelnianie.Pages
 
         public void OnGet()
         {
-            var Data2 = HttpContext.Session.GetString("Data2");
-            if (Data2 != null)
-                userDataList =
-                JsonConvert.DeserializeObject<List<InputPicker>>(Data2);
+            
         }
 
         public IActionResult OnPost()
         {
-            var Data2 = HttpContext.Session.GetString("Data2");
-            if (Data2 != null)
-                userDataList =
-                JsonConvert.DeserializeObject<List<InputPicker>>(Data2);
+            var Data = HttpContext.Session.GetString("Data");
+            if (Data != null)
+                userDataList = JsonConvert.DeserializeObject<List<InputPicker>>(Data);
+
             if (ModelState.IsValid)
             {
                 isValidated = true;

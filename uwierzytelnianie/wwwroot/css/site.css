@@ -16,3 +16,13 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.nameIn {
+    width: 50%;
+    margin: 10px 10px 10px 10px;
+}
+
+.dateIn {
+    width: 50%;
+    margin: 10px 10px 10px 10px;
+}

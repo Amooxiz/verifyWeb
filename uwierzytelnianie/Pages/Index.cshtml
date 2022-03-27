@@ -7,11 +7,11 @@
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <form method="post">
-        <label for="userData.name"></label>
-        <input asp-for="userData.name"/> <br />
+        <label asp-for="userData.name"></label> <br />
+        <input class="nameIn" asp-for="userData.name"/> <br />
         <span asp-validation-for="userData.name" class="text-danger"></span>
-        <label for="userData.date"></label>
-        <input asp-for="userData.date"/> <br />
+        <label asp-for="userData.date"></label> <br />
+        <input class="dateIn" asp-for="userData.date"/> <br />
         <button type="submit">Zatwierdz</button>
         <span asp-validation-for="userData.date" class="text-danger"></span>
         <hr/>
