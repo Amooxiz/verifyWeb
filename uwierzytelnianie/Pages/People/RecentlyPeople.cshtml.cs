@@ -7,8 +7,8 @@ namespace uwierzytelnianie.Pages
 {
     public class RecentlyPeopleModel : PageModel
     {
-        public List<Person> People { get; set; }
-        public List<Person> Recent20 { get; set; }
+        public IEnumerable<Person> People { get; set; }
+        public Person Person { get; set; }
         private readonly PeopleContext _context;
         public RecentlyPeopleModel(PeopleContext context)
         {
@@ -16,11 +16,9 @@ namespace uwierzytelnianie.Pages
         }
         public void OnGet()
         {
-            People = _context.Person.ToList();
-           
-            Recent20 = (People.Count > 20) ? People.GetRange(0, 20) : People.ToList();
-
-            Recent20.Sort((x, y) => y.DateTime.CompareTo(x.DateTime));
+            People = (_context.Person.Count() > 20) ?
+                     (_context.Person.OrderByDescending(x => x.DateTime)).Take(20).ToList() :
+                     _context.Person.OrderByDescending(x => x.DateTime).ToList();
         }
     }
 }
