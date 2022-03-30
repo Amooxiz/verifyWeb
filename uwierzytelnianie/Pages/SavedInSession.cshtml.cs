@@ -7,12 +7,12 @@ namespace uwierzytelnianie.Pages
 {
     public class SavedInSessionModel : PageModel
     {
-        public List<InputPicker> userDataList = new List<InputPicker>();
+        public List<Person> userDataList = new List<Person>();
         public void OnGet()
         {
             var Data = HttpContext.Session.GetString("Data");
             if (Data != null)
-                userDataList = JsonConvert.DeserializeObject<List<InputPicker>>(Data);
+                userDataList = JsonConvert.DeserializeObject<List<Person>>(Data);
 
             HttpContext.Session.SetString("Data", JsonConvert.SerializeObject(userDataList));
         }

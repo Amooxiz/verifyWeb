@@ -7,17 +7,29 @@
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <form method="post">
-        <label asp-for="userData.name"></label> <br />
-        <input class="nameIn" asp-for="userData.name"/> <br />
-        <span asp-validation-for="userData.name" class="text-danger"></span>
-        <label asp-for="userData.date"></label> <br />
-        <input class="dateIn" asp-for="userData.date"/> <br />
-        <button type="submit">Zatwierdz</button>
-        <span asp-validation-for="userData.date" class="text-danger"></span>
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Person.Name" class="control-label"></label>
+                <input asp-for="Person.Name" class="form-control" />
+                <span asp-validation-for="Person.Name"class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Person.Surname" class="control-label"></label>
+                <input asp-for="Person.Surname" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Person.Year" class="control-label"></label>
+                <input asp-for="Person.Year" class="form-control" />
+                <span asp-validation-for="Person.Year" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+               <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+    </form>
         <hr/>
         @if (Model.isValidated)
         {
-            <h6>@Model.userData.name urodził się w @Model.userData.date roku. To @Model.userData.IsLeapYear() był rok przestępny</h6>
+            <h6>@Model.Person.Name urodził się w @Model.Person.Year roku. To @Model.Person.IsLeapYear() był rok przestępny</h6>
         }
-    </form>
+        <hr />
 </div>

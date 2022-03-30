@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using uwierzytelnianie.Models;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
+using uwierzytelnianie.Data;
 
 namespace uwierzytelnianie.Pages
 {
@@ -12,32 +13,40 @@ namespace uwierzytelnianie.Pages
 
         public bool isValidated = false;
 
+        private readonly PeopleContext _context;
+
 
         [BindProperty]
-        public InputPicker userData { get; set; }
-        public List<InputPicker>? userDataList = new List<InputPicker>();
+        public Person Person { get; set; }
+        public List<Person>? PeopleList = new List<Person>();
 
-        public IndexModel(ILogger<IndexModel> logger)
+        public IndexModel(ILogger<IndexModel> logger, PeopleContext context)
         {
             _logger = logger;
+            _context = context;
         }
-
+        public IList<Person> People { get; set; }
         public void OnGet()
         {
-            
+            People = _context.Person.ToList();
         }
+
 
         public IActionResult OnPost()
         {
             var Data = HttpContext.Session.GetString("Data");
             if (Data != null)
-                userDataList = JsonConvert.DeserializeObject<List<InputPicker>>(Data);
+                PeopleList = JsonConvert.DeserializeObject<List<Person>>(Data);
 
             if (ModelState.IsValid)
             {
+                Person.DateTime = DateTime.Now;
+                Person.IsLeapYear();
+                _context.Person.Add(Person);
+                _context.SaveChanges();
                 isValidated = true;
-                userDataList.Add(userData);
-                HttpContext.Session.SetString("Data", JsonConvert.SerializeObject(userDataList));
+                PeopleList.Add(Person);
+                HttpContext.Session.SetString("Data", JsonConvert.SerializeObject(PeopleList));
                 return Page();
             }
             isValidated = false;
