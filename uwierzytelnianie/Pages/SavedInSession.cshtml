@@ -8,6 +8,12 @@
 {
     @foreach(var i in @Model.userDataList)
         {
-            <h6>@i.Name, @i.Year - rok @i.IsLeapYear() przestepny<br/></h6>
+            @if (@i.IsLeapYear())
+            {
+                <h6>@i.Name, @i.Surname, @i.Year - rok przestepny<br/></h6>
+            }
+            else{
+                <h6>@i.Name, @i.Surname, @i.Year - rok nie przestepny<br/></h6>
+            }
         }
 }

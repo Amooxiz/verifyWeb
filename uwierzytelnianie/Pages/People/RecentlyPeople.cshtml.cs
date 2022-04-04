@@ -7,7 +7,7 @@ namespace uwierzytelnianie.Pages
 {
     public class RecentlyPeopleModel : PageModel
     {
-        public IEnumerable<Person> People { get; set; }
+        public List<Person> People { get; set; }
         public Person Person { get; set; }
         private readonly PeopleContext _context;
         public RecentlyPeopleModel(PeopleContext context)

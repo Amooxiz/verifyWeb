@@ -8,7 +8,7 @@ namespace uwierzytelnianie.Pages.People
     public class SearchPageModel : PageModel
     {
         public PeopleRepository PeopleRepository { get; set; }
-        public IEnumerable<Person> People { get; set;}
+        public List<Person> People { get; set;}
         public Person Person { get; set; }
         private readonly PeopleContext _context;
         [BindProperty(SupportsGet = true)]

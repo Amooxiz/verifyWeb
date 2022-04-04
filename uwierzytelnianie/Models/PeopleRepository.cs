@@ -11,7 +11,7 @@ namespace uwierzytelnianie.Models
             _context = context;
         }
 
-        public IEnumerable<Person> Search(string NameTerm, string SurnameTerm)
+        public List<Person> Search(string NameTerm, string SurnameTerm)
         {
             if (string.IsNullOrEmpty(NameTerm) && string.IsNullOrEmpty(SurnameTerm))
             {

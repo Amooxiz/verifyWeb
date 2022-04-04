@@ -29,7 +29,13 @@
         <hr/>
         @if (Model.isValidated)
         {
-            <h6>@Model.Person.Name urodził się w @Model.Person.Year roku. To @Model.Person.IsLeapYear() był rok przestępny</h6>
+            @if (Model.Person.IsLeapYear())
+            {
+                <h6>@Model.Person.Name @Model.Person.Surname urodził się w @Model.Person.Year roku. To był rok przestępny</h6>
+            }
+            else{
+                <h6>@Model.Person.Name @Model.Person.Surname urodził się w @Model.Person.Year roku. To nie był rok przestępny</h6>
+            }
         }
         <hr />
 </div>

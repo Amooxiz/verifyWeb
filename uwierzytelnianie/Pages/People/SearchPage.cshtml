@@ -6,7 +6,9 @@
 
 <form method="get">
     <div class="input-group">
-        <input class="form_control" asp-for="NameTerm" />
+        <label asp-for="NameTerm">Imie</label>
+        <input class="form_control" asp-for="NameTerm" /> <br/>
+        <label asp-for="SurnameTerm">Nazwisko</label>
          <input class="form_control" asp-for="SurnameTerm" />
         <div class="input-group-append">
             <button type="submit" class="btn btn-primary">Szukaj</button>
