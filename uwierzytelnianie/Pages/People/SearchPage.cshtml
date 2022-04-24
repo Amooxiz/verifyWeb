@@ -1,12 +1,21 @@
 ﻿@page
-@model uwierzytelnianie.Pages.RecentlyPeopleModel
+@model uwierzytelnianie.Pages.People.SearchPageModel
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "SearchPage";
 }
 
-<h1>Index</h1>
+<form method="get">
+    <div class="input-group">
+        <label asp-for="NameTerm">Imie</label>
+        <input class="form_control" asp-for="NameTerm" /> <br/>
+        <label asp-for="SurnameTerm">Nazwisko</label>
+         <input class="form_control" asp-for="SurnameTerm" />
+        <div class="input-group-append">
+            <button type="submit" class="btn btn-primary">Szukaj</button>
+        </div>
+    </div>
+</form>
 
-<a href="/People/SearchPage" class="Button">Wyszukaj w bazie danych</a>
 <table class="table">
     <thead>
         <tr>
@@ -38,6 +47,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Year)
+            </td>
+            <td>
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
 }

@@ -1,4 +1,52 @@
 ﻿@page
 @model uwierzytelnianie.Pages.People.DeleteModel
+
 @{
+    ViewData["Title"] = "Delete";
 }
+
+<h1>Delete</h1>
+
+<h3>Jesteś pewny że chcesz usunąć użytkownika?</h3>
+<div>
+    <h4>Person</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Person.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Person.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Person.Surname)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Person.Surname)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Person.Year)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Person.Year)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Person.DateTime)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Person.DateTime)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Person.IsLeap)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Person.IsLeap)
+        </dd>
+    </dl>
+    
+    <form method="post">
+        <input type="hidden" asp-for="Person.Id" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-page="./SearchPage">Back to List</a>
+    </form>
+</div>

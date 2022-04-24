@@ -29,7 +29,52 @@
         <hr/>
         @if (Model.isValidated)
         {
-            <h6>@Model.Person.Name urodził się w @Model.Person.Year roku. To @Model.Person.IsLeapYear() był rok przestępny</h6>
+            @if (Model.Person.IsLeapYear())
+            {
+                <h6>@Model.Person.Name @Model.Person.Surname urodził się w @Model.Person.Year roku. To był rok przestępny</h6>
+            }
+            else{
+                <h6>@Model.Person.Name @Model.Person.Surname urodził się w @Model.Person.Year roku. To nie był rok przestępny</h6>
+            }
         }
         <hr />
 </div>
+        <div class="text_center">
+        <h3>Lista dzisiejszych wpisów. Łącznie @Model.Ppl.Count użytkowników</h3>
+        </div>
+   <table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PersonVM.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PersonVM.FullName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PersonVM.JoinDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PersonVM.Year)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Ppl.People) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.JoinDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Year)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
