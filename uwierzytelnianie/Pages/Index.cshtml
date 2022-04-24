@@ -39,3 +39,42 @@
         }
         <hr />
 </div>
+        <div class="text_center">
+        <h3>Lista dzisiejszych wpisów. Łącznie @Model.Ppl.Count użytkowników</h3>
+        </div>
+   <table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PersonVM.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PersonVM.FullName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PersonVM.JoinDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PersonVM.Year)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Ppl.People) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.JoinDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Year)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

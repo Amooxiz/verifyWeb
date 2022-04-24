@@ -10,11 +10,11 @@ namespace uwierzytelnianie.Pages
         public List<Person> userDataList = new List<Person>();
         public void OnGet()
         {
-            var Data = HttpContext.Session.GetString("Data");
-            if (Data != null)
-                userDataList = JsonConvert.DeserializeObject<List<Person>>(Data);
+            //var Data = HttpContext.Session.GetString("Data");
+            //if (Data != null)
+            //    userDataList = JsonConvert.DeserializeObject<List<Person>>(Data);
 
-            HttpContext.Session.SetString("Data", JsonConvert.SerializeObject(userDataList));
+            //HttpContext.Session.SetString("Data", JsonConvert.SerializeObject(userDataList));
         }
     }
 }

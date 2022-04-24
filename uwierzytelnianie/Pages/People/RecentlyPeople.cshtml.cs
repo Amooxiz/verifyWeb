@@ -1,24 +1,24 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using uwierzytelnianie.Data;
+using uwierzytelnianie.Interfaces;
 using uwierzytelnianie.Models;
+using uwierzytelnianie.ViewModels;
 
 namespace uwierzytelnianie.Pages
 {
     public class RecentlyPeopleModel : PageModel
     {
-        public List<Person> People { get; set; }
-        public Person Person { get; set; }
-        private readonly PeopleContext _context;
-        public RecentlyPeopleModel(PeopleContext context)
+        public ListPersonForListVM Ppl { get; set; }
+        public PersonForListVM PersonVM { get; set; }
+        private readonly IPersonService _personService;
+        public RecentlyPeopleModel(IPersonService personService)
         {
-            _context = context;
+            _personService = personService;
         }
         public void OnGet()
         {
-            People = (_context.Person.Count() > 20) ?
-                     (_context.Person.OrderByDescending(x => x.DateTime)).Take(20).ToList() :
-                     _context.Person.OrderByDescending(x => x.DateTime).ToList();
+            Ppl = _personService.GetAllEntries();
         }
     }
 }

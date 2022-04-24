@@ -1,28 +1,28 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using uwierzytelnianie.Data;
+using uwierzytelnianie.Interfaces;
 using uwierzytelnianie.Models;
+using uwierzytelnianie.ViewModels;
 
 namespace uwierzytelnianie.Pages.People
 {
     public class SearchPageModel : PageModel
     {
-        public PeopleRepository PeopleRepository { get; set; }
-        public List<Person> People { get; set;}
-        public Person Person { get; set; }
-        private readonly PeopleContext _context;
+        private readonly IPersonService _personService;
+        public ListPersonForListVM Ppl { get; set;}
+        public PersonForListVM PersonVM { get; set; }
         [BindProperty(SupportsGet = true)]
         public string NameTerm { get; set; }
         [BindProperty(SupportsGet = true)]
         public string SurnameTerm { get; set; }
-        public SearchPageModel(PeopleContext context)
+        public SearchPageModel(IPersonService personService)
         {
-            _context = context;
-            this.PeopleRepository = new PeopleRepository(context);
+            _personService = personService;
         }
         public void OnGet()
         {
-            People = PeopleRepository.Search(NameTerm, SurnameTerm);
+            Ppl = _personService.GetSearchResults(NameTerm, SurnameTerm);
         }
     }
 }

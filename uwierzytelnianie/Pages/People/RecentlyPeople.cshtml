@@ -11,39 +11,33 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Person.Name)
+                @Html.DisplayNameFor(model => model.PersonVM.Id)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Person.Surname)
+                @Html.DisplayNameFor(model => model.PersonVM.FullName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Person.Year)
+                @Html.DisplayNameFor(model => model.PersonVM.JoinDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Person.DateTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Person.IsLeap)
+                @Html.DisplayNameFor(model => model.PersonVM.Year)
             </th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.People) {
+@foreach (var item in Model.Ppl.People) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Name)
+                @Html.DisplayFor(modelItem => item.Id)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Surname)
+                @Html.DisplayFor(modelItem => item.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.JoinDate)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Year)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsLeap)
             </td>
         </tr>
 }

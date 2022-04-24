@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using uwierzytelnianie;
 using uwierzytelnianie.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddDbContext<PeopleContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("PeopleDatabase")));
+builder.Services.AddProjectService();
 
 builder.Services.AddMemoryCache();
 builder.Services.AddSession(options =>
