@@ -1,6 +1,7 @@
 ﻿using uwierzytelnianie.Interfaces;
 using uwierzytelnianie.Models;
 using uwierzytelnianie.ViewModels;
+using Microsoft.AspNetCore.Identity;
 
 namespace uwierzytelnianie.Services
 {
@@ -49,9 +50,9 @@ namespace uwierzytelnianie.Services
             result.Count = result.People.Count;
             return result;
         }
-        public ListPersonForListVM GetSearchResults(string NameTerm, string SurnameTerm)
+        public ListPersonForListVM GetSearchResults(string NameTerm, string SurnameTerm, string UserId)
         {
-            var people = _personRepo.Search(NameTerm, SurnameTerm);
+            var people = _personRepo.Search(NameTerm, SurnameTerm, UserId);
             ListPersonForListVM result = new ListPersonForListVM();
             result.People = new List<PersonForListVM>();
             foreach (var person in people)
@@ -90,6 +91,11 @@ namespace uwierzytelnianie.Services
         public void AddEntry(Person person)
         {
             _personRepo.AddEntryToDB(person);
+        }
+
+        public AppUser GetUser(string UserId)
+        {
+            return (AppUser)_personRepo.GetUser(UserId);
         }
     }
 }

@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Security.Claims;
 using uwierzytelnianie.Data;
 using uwierzytelnianie.Interfaces;
 using uwierzytelnianie.Models;
@@ -22,7 +23,9 @@ namespace uwierzytelnianie.Pages.People
         }
         public void OnGet()
         {
-            Ppl = _personService.GetSearchResults(NameTerm, SurnameTerm);
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claims = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+            Ppl = _personService.GetSearchResults(NameTerm, SurnameTerm, claims.Value);
         }
     }
 }

@@ -7,6 +7,8 @@ namespace uwierzytelnianie.Models
     {
         public int Id { get; set; }
 
+        public AppUser? AppUser { get; set; }
+
         [Display(Name = "Imię")]
         [Required]
         [StringLength(maximumLength: 100, ErrorMessage = "Maksymalnie 100 znaków")]

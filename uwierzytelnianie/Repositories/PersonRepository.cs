@@ -1,6 +1,7 @@
 ﻿using uwierzytelnianie.Data;
 using uwierzytelnianie.Interfaces;
 using uwierzytelnianie.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace uwierzytelnianie.Repositories
 {
@@ -19,24 +20,24 @@ namespace uwierzytelnianie.Repositories
         {
             return _context.Person.Where(x => x.DateTime.Date == DateTime.Today);
         }
-        public IQueryable<Person> Search(string NameTerm, string SurnameTerm)
+        public IQueryable<Person> Search(string NameTerm, string SurnameTerm, string UserId)
         {
             if (string.IsNullOrEmpty(NameTerm) && string.IsNullOrEmpty(SurnameTerm))
             {
-                return _context.Person.OrderByDescending(o => o.DateTime);
+                return _context.Person.Where(o => o.AppUser.Id == UserId).OrderByDescending(o => o.DateTime);
             }
             else if (string.IsNullOrEmpty(NameTerm))
             {
-                return _context.Person.Where(o => o.Surname.StartsWith(SurnameTerm)).OrderByDescending(o => o.DateTime);
+                return _context.Person.Where(o => o.Surname.StartsWith(SurnameTerm) && o.AppUser.Id == UserId).OrderByDescending(o => o.DateTime);
             }
             else if (string.IsNullOrEmpty(SurnameTerm))
             {
-                return _context.Person.Where(o => o.Name.StartsWith(NameTerm)).OrderByDescending(o => o.DateTime);
+                return _context.Person.Where(o => o.Name.StartsWith(NameTerm) && o.AppUser.Id == UserId).OrderByDescending(o => o.DateTime);
             }
             else
             {
-                return _context.Person.Where(o => o.Name.StartsWith(NameTerm) &&
-                    o.Surname.StartsWith(SurnameTerm)).OrderByDescending(o => o.DateTime);
+                return _context.Person.Where(o => (o.Name.StartsWith(NameTerm) &&
+                    o.Surname.StartsWith(SurnameTerm)) && o.AppUser.Id == UserId).OrderByDescending(o => o.DateTime);
             }
         }
         public IQueryable<Person> GetRecent20()
@@ -49,6 +50,11 @@ namespace uwierzytelnianie.Repositories
         {
             _context.Person.Add(person);
             _context.SaveChanges();
+        }
+        
+        public IdentityUser GetUser(string UserId)
+        {
+            return _context.Users.Find(UserId);
         }
     }
 }

@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using uwierzytelnianie.Data;
 using uwierzytelnianie.Interfaces;
 using uwierzytelnianie.ViewModels;
+using System.Security.Claims;
 
 namespace uwierzytelnianie.Pages
 {
@@ -33,19 +34,21 @@ namespace uwierzytelnianie.Pages
 
         public IActionResult OnPost()
         {
-            //var Data = HttpContext.Session.GetString("Data");
-            //if (Data != null)
-            //    PeopleList = JsonConvert.DeserializeObject<List<Person>>(Data);
+            
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claims = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+
+            if (claims.Value == null)
+                return Page();
 
             if (ModelState.IsValid)
             {
+                Person.AppUser = _personService.GetUser(claims.Value);
                 Person.DateTime = DateTime.Now;
                 Person.IsLeapYear();
                 _personService.AddEntry(Person);
                 isValidated = true;
                 Ppl = _personService.GetEntriesFromToday();
-                //PeopleList.Add(Person);
-                //HttpContext.Session.SetString("Data", JsonConvert.SerializeObject(PeopleList));
                 return Page();
             }
             isValidated = false;
